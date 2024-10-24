@@ -14,9 +14,14 @@ public class RecursiveMethods {
 	public static double geometricSum(int n) {
 		
 			// FIXME compute the geometric sum for the first n terms recursively
-			return 0;
 		
-	}
+			if (n == 0) {
+		        return 0;
+		    }
+		    return Math.pow(0.5, n) + geometricSum(n - 1);
+		}
+			
+		
 	
 	/**
 	 * @param xCenter                       x-coordinate of the center of the circle
@@ -29,9 +34,18 @@ public class RecursiveMethods {
 	 */
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
-		
-		// FIXME
+		if (radius < radiusMinimumDrawingThreshold) {
+	        return;
+	    }
+	    StdDraw.circle(xCenter, yCenter, radius);
+	    circlesUponCircles(xCenter, yCenter + radius, radius / 3.0, radiusMinimumDrawingThreshold); // Top
+	    circlesUponCircles(xCenter, yCenter - radius, radius / 3.0, radiusMinimumDrawingThreshold); // Bottom
+	    circlesUponCircles(xCenter - radius, yCenter, radius / 3.0, radiusMinimumDrawingThreshold); // Left
+	    circlesUponCircles(xCenter + radius, yCenter, radius / 3.0, radiusMinimumDrawingThreshold); // Right
+
 	}
+		// FIXME
+	
 
 	/**
 	 * This method uses recursion to create a reverse of the given array
@@ -40,11 +54,23 @@ public class RecursiveMethods {
 	 * @return an array with the same data as the input but it reverse order
 	 */
 	public static int[] toReversed(int[] array) {
+		return reverseHelper(array, 0, array.length - 1);
+	}
+
+	private static int[] reverseHelper(int[] array, int start, int end) {
+	    if (start >= end) {
+	        return array;
+	    }
+	    int temp = array[start];
+	    array[start] = array[end];
+	    array[end] = temp;
+	    return reverseHelper(array, start + 1, end - 1);
+	
 		
 			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
+		//	return new int[0];
 		
-	}
+}
 	
 	/**
 	 * This method uses recursion to compute the greatest common divisor
